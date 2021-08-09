@@ -1,16 +1,31 @@
-#:include memorymapview.kv
-
 <RootWidget>:
     HomeScreen:
         name: "home_screen"
         id: screen_home
+    PlayScreen:
+        name: "play_screen"
+        id: screen_play
 
 <HomeScreen>:
-    MDFillRoundFlatButton:
-        text: "Play"
-        font_size: 20
-        pos_hint: {'center_x':0.5, 'center_y':0.8}
-        on_press:
-            pass
+    GridLayout:
+        spacing: "10dp"
+        padding: "20dp"
+        cols: 1
 
-    MemoryMapView:
+        MDLabel:
+            text: "In which area do you want to play?"
+            pos_hint: {'center_x':0.5, 'center_y':0.8}
+
+        MDTextField:
+            id: area_text_field
+            text: "Leiden"
+            pos_hint: {'center_x':0.5, 'center_y':0.7}
+
+        RelativeLayout:
+            MDFillRoundFlatButton:
+                text: "Play"
+                font_size: 20
+                pos_hint: {'center_x':0.5}
+                on_press:
+                    root.manager.transition.direction = "left"
+                    root.manager.current = "play_screen"
