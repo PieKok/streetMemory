@@ -1,0 +1,8 @@
+#:import MapView kivy_garden.mapview.MapView
+
+<MemoryMapView>:
+    lat: 52.160114
+    lon: 4.497010
+    zoom: 14
+    on_zoom:
+        self.zoom = 14 if self.zoom < 14 else self.zoom
