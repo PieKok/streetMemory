@@ -26,6 +26,4 @@
                 text: "Play"
                 font_size: 20
                 pos_hint: {'center_x':0.5}
-                on_press:
-                    root.manager.transition.direction = "left"
-                    root.manager.current = "play_screen"
+                on_press: root.action_play_button()

@@ -4,6 +4,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivymd.uix.toolbar import MDToolbar
 from kivy.base import EventLoop
 import playScreen
+from geopy.geocoders import Nominatim
 
 
 
@@ -34,7 +35,13 @@ class RootWidget(ScreenManager):
     pass
 
 class HomeScreen(Screen):
-    pass
+    def action_play_button(self):
+        geo_app = Nominatim(user_agent='StreetMemory')
+        my_latlon = geo_app.geocode(self.ids.area_text_field.text).raw
+        self.parent.ids.screen_play.ids.mapViewer.zoom = 14
+        self.parent.ids.screen_play.ids.mapViewer.center_on(float(my_latlon["lat"]), float(my_latlon["lon"]))
+        my_app = MDApp.get_running_app()
+        my_app.change_screen("play_screen", "left")
 
 
 if __name__ == '__main__':
