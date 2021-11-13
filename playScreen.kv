@@ -9,7 +9,12 @@
             id: toolbar
             title: 'Play Screen'
             left_action_items: [["arrow-left", lambda x: app.change_screen('home_screen','right')]]
-            right_action_items: [["check-bold", lambda x: root.actionButton() ]]
+            right_action_items: [["play", lambda x: root.actionButton() ]]
+
+        MDLabel:
+            id: id_street_text
+            text: "  >> press play <<"
+            size_hint: (1,0.05)
 
         MemoryMapView:
             id: mapViewer
