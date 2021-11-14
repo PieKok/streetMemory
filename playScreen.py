@@ -14,18 +14,20 @@ class PlayScreen(Screen):
         self.street_target = ""
 
     def actionButton(self):
+        my_mapview = self.ids.mapViewer
         if self.ids.toolbar.ids.right_actions.children[0].icon == "play":
-            self.x_target = self.ids.mapViewer.width * random.random()
-            self.y_target = self.ids.mapViewer.height * random.random()
-            self.lonlat_target = self.ids.mapViewer.get_latlon_at(self.x_target, self.y_target)
+            self.x_target = my_mapview.width * random.random()
+            self.y_target = my_mapview.height * random.random()
+            self.lonlat_target = my_mapview.get_latlon_at(self.x_target, self.y_target)
             my_geo_app = Nominatim(user_agent='StreetMemory')
             my_address = my_geo_app.reverse(self.lonlat_target)
             self.street_target = my_address.raw['address']['road']
             self.ids.id_street_text.text = "  Double-tap where you think " + self.street_target + " is"
+            my_mapview.remove_target_marker()
             self.ids.toolbar.ids.right_actions.children[0].icon = "check-bold"
 
         elif self.ids.toolbar.ids.right_actions.children[0].icon == "check-bold":
-            my_marker = MapMarker(lat=self.lonlat_target.lat, lon=self.lonlat_target.lon)
-            self.ids.mapViewer.add_marker(my_marker)
+            my_mapview.set_target_marker(self.lonlat_target)
+            self.ids.id_street_text.text = "  This is where " + self.street_target + " is"
             self.ids.toolbar.ids.right_actions.children[0].icon = "play"
 
